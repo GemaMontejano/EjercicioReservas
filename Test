@@ -1,0 +1,104 @@
+package EjercicioReservas;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+
+public class Test {
+
+			public static void main(String[] args) {
+				Reservas reservasRestaurante = new Reservas();
+
+				LocalDateTime fechaCorrecta = LocalDateTime.of(2023, 03, 01, 22, 0);
+				LocalDateTime fechaIncorrecta1 = LocalDateTime.of(2023, 03, 01, 7, 0);
+				LocalDateTime fechaIncorrecta2 = LocalDateTime.of(2023, 03, 01, 8, 15);
+				LocalDateTime fechaIncorrecta3 = null;
+
+				System.out.println("Intentando crear reserva con fecha correcta: addReserva(" + fechaCorrecta + ")");
+				boolean reservaCreada = reservasRestaurante.addReserva(fechaCorrecta);
+				if (reservaCreada) {
+					System.out.println("Reserva creada correctamente");
+				} else {
+					System.out.println("No se pudo crear la reserva");
+				}
+
+				System.out.println("\nIntentando crear reserva con fecha incorrecta (hora antes de las 8): addReserva(" + fechaIncorrecta1 + ")");
+				reservaCreada = reservasRestaurante.addReserva(fechaIncorrecta1);
+				if (reservaCreada) {
+					System.out.println("Reserva creada correctamente");
+				} else {
+					System.out.println("No se pudo crear la reserva");
+				}
+				System.out.println("\nIntentando crear reserva con fecha incorrecta (minutos distintos de 0): addReserva(" + fechaIncorrecta2 + ")");
+				reservaCreada = reservasRestaurante.addReserva(fechaIncorrecta3);
+				if (reservaCreada) {
+					System.out.println("Reserva creada correctamente");
+				} else {
+					System.out.println("No se pudo crear la reserva");
+				}
+				System.out.println("\nIntentando crear reserva con fecha incorrecta (null): addReserva(" + fechaIncorrecta3 + ")");
+				reservaCreada = reservasRestaurante.addReserva(fechaIncorrecta3);
+				if (reservaCreada) {
+					System.out.println("Reserva creada correctamente");
+				} else {
+					System.out.println("No se pudo crear la reserva");
+				}
+				System.out.println("\nIntentando crear reserva con parámetros separados: addReserva(21, 1, 12, 2023)");
+				reservaCreada = reservasRestaurante.addReserva(21, 1, 12, 2023);
+				if (reservaCreada) {
+					System.out.println("Reserva creada correctamente");
+				} else {
+					System.out.println("No se pudo crear la reserva");
+				}
+				System.out.println("\nIntentando crear reserva con parámetros separados (excepción): addReserva(10, 1, 2023, 25)");
+				reservaCreada = reservasRestaurante.addReserva(10, 1, 2023, 25);
+				if (reservaCreada) {
+					System.out.println("Reserva creada correctamente");
+				} else {
+					System.out.println("No se pudo crear la reserva");
+				}
+				System.out.println("\nIntentando cancelar reserva: cancelReserva(fechaCorrecta)");
+				reservaCreada = reservasRestaurante.cancelReserva(fechaCorrecta);
+				if (reservaCreada) {
+					System.out.println("Reserva cancelada correctamente");
+				} else {
+					System.out.println("No se pudo cancelar la reserva");
+				}
+				System.out.println("\nIntentando cancelar reserva con parámetros separados: cancelReserva(10,1,2,2023)");
+				reservaCreada = reservasRestaurante.cancelReserva(10,1,2,2023);
+				if (reservaCreada) {
+					System.out.println("Reserva cancelada correctamente");
+				} else {
+					System.out.println("No se pudo cancelar la reserva");
+				}
+		// Crear instancia de la clase Reservas
+		Reservas reservas = new Reservas();
+
+		// Crear algunas reservas para diferentes meses y años
+		reservas.addReserva(LocalDateTime.of(2023, 1, 5, 23, 0)); // Enero 2023
+		reservas.addReserva(LocalDateTime.of(2023, 1, 10, 20, 0)); // Enero 2023
+		reservas.addReserva(LocalDateTime.of(2023, 2, 14, 14, 0)); // Febrero 2023
+		reservas.addReserva(LocalDateTime.of(2023, 2, 27, 20, 0)); // Febrero 2023
+		reservas.addReserva(LocalDateTime.of(2023, 2, 28, 20, 0)); // Febrero 2023
+		reservas.addReserva(LocalDateTime.of(2023, 3, 3, 21, 0)); // Marzo 2023
+		reservas.addReserva(LocalDateTime.of(2023, 3, 7, 20, 0)); // Marzo 2023
+
+		// Obtener el número de reservas de febrero 2023
+		int numReservas = reservas.numReservas(2, 2023);
+		System.out.println("Número de reservas en febrero de 2023: " + numReservas);
+
+		// Obtener el número de reservas de marzo del año actual
+		int numReservasActual = reservas.numReservas(3);
+		System.out.println("Número de reservas en marzo del año actual: " + numReservasActual);
+			System.out.println("\nHoras libres para hoy:");
+			ArrayList<Integer> horasLibres = reservas.getLibres();
+			for (int hora : horasLibres) {
+				System.out.println(hora);
+			}
+
+			// Obtener ocupación para este año
+			int ocupacion = reservas.ocupacion();
+			System.out.println("\nNúmero total de reservas este año: " + ocupacion);
+			}
+		
+
+}
