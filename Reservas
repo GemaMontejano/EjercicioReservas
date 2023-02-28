@@ -1,0 +1,82 @@
+package EjercicioReservas;
+
+	import java.time.*;
+	import java.util.*;
+
+
+	public class Reservas {
+
+		private ArrayList<LocalDateTime> reservas;
+
+		public Reservas() {
+			this.reservas =  new ArrayList<>();
+		}
+		
+		public boolean addReserva(LocalDateTime fecha) {
+			try {
+				if(fecha.getDayOfWeek().getValue()== 1 ) {return false;
+			}
+				if(fecha.getHour()<20) {return false;
+		}
+				if(fecha.getMinute()!=0) {return false;
+		}
+				if(reservas.contains(fecha)) {return false;
+			}
+				else {reservas.add(fecha);
+					return true;
+				}
+			} catch(Exception e) {
+				return false;
+			}
+		}
+		public boolean addReserva(int hora, int dia, int mes, int año) {
+		LocalDateTime fecha;
+		try { fecha = LocalDateTime.of(año, mes, dia, hora,0);}
+		
+		catch(Exception E ) {return false;}
+		return addReserva(fecha);
+		}
+		public boolean cancelReserva(LocalDateTime fecha) {
+			return reservas.remove(fecha);
+		}
+		public boolean cancelReserva(int hora, int dia, int mes, int año) {
+			LocalDateTime fecha;
+			try { fecha = LocalDateTime.of(año, mes, dia, hora,0);}
+			
+			catch(Exception E ) {return false;}
+			
+			return reservas.remove(fecha);
+			}
+		
+		public int numReservas(int mes, int año) {
+			int count=0;
+			for (LocalDateTime fecha : reservas) {
+				if (fecha.getMonthValue() == mes && fecha.getYear() == año) {
+					count++;
+				}
+			}
+			return count;
+		}
+
+		public int numReservas(int mes) {
+			return numReservas(mes, LocalDateTime.now().getYear());
+		}
+
+		public ArrayList<Integer> getLibres() {
+			ArrayList<Integer> libres = new ArrayList<>();
+			LocalDateTime now = LocalDateTime.now();
+			for (int hora = 20; hora < 24; hora++) {
+				LocalDateTime fecha = LocalDateTime.of(now.getYear(), now.getMonthValue(), now.getDayOfMonth(), hora, 0);
+				if (!reservas.contains(fecha)) {
+					libres.add(hora);
+				}
+			}
+			return libres;
+		}
+
+		public int ocupacion() {
+			return reservas.size();
+		}
+	}
+
+
